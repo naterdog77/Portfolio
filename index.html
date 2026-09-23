@@ -71,8 +71,20 @@
   .facts dd { margin: 0.1rem 0 0; font-weight: 600; }
 
   /* Revision table: the signature element */
-  .how { margin: 2.5rem 0 0; }
-  .how p { margin: 0 0 0.75rem; }
+  .lede { max-width: 60ch; font-size: 1.15rem; margin: 0; }
+  details.more-text { margin: 1rem 0 0; border-bottom: 1px solid var(--rule); }
+  details.how { margin-top: 1.75rem; border-top: 0; }
+  details.more-text summary { cursor: pointer; list-style: none; font-weight: 650; color: var(--blue);
+    padding: 0.55rem 0; display: flex; align-items: center; gap: 0.6rem; width: fit-content; }
+  details.more-text summary::-webkit-details-marker { display: none; }
+  details.more-text summary::before { content: "+"; display: inline-grid; place-items: center;
+    width: 1.35rem; height: 1.35rem; border: 1.5px solid currentColor; font-weight: 700; line-height: 1; }
+  details.more-text[open] summary::before { content: "\2212"; }
+  details.more-text .prose { padding: 0.25rem 0 1rem; }
+  details.more-text .prose p { margin: 0 0 0.75rem; }
+  .shots.quad { grid-template-columns: repeat(2, 1fr); }
+  .shots.quad img { aspect-ratio: 4 / 3; }
+  .rev-sum { font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem; max-width: 60ch; }
   .revs { margin: 3rem 0 0; }
   .revs > h3 { margin-bottom: 1rem; }
   article.rev { border-top: 1.5px solid var(--ink); display: grid;
@@ -83,9 +95,7 @@
     color: var(--graphite); line-height: 1.2; margin-bottom: 0.4rem; }
   .rev-body { min-width: 0; }
   .rev-body > p { max-width: 64ch; margin: 0 0 0.75rem; }
-  .change { border-left: 3px solid var(--blue); padding: 0.1rem 0 0.1rem 1rem; margin: 1rem 0 1.25rem; max-width: 64ch; }
-  .change strong { display: block; font-size: 0.9rem; color: var(--graphite); font-weight: 600; }
-  .shots { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .shots { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
   .shots figure { margin: 0; }
   .shots img, .shots video { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: var(--panel); cursor: zoom-in; }
   .shots video { cursor: default; }
@@ -144,9 +154,7 @@
 
   <section class="project" aria-labelledby="robot">
     <h2 id="robot">Phone puzzle-solving robot</h2>
-    <div class="prose">
-      <p>A robot that plays a liquid color-sorting puzzle on my phone faster than I can. It reads the puzzle with computer vision, finds the best solution, and taps it out with a solenoid on a two-axis gantry. I designed, built, and programmed it on my own, through three prototypes, each one aimed at the same goal: more speed without losing accuracy.</p>
-    </div>
+    <p class="lede">A robot that reads a color-sorting puzzle on my phone with computer vision, solves it, and taps out the answer faster than I can. Designed, built, and programmed on my own through three prototypes.</p>
     <dl class="facts">
       <div><dt>Timeline</dt><dd>Summer 2024 to summer 2026</dd></div>
       <div><dt>Design and fabrication</dt><dd>SolidWorks, 3D printing</dd></div>
@@ -154,24 +162,22 @@
       <div><dt>Hardware</dt><dd>CoreXY gantry, closed-loop steppers, solenoid, ESP32</dd></div>
     </dl>
 
-    <div class="how prose">
-      <h3>How it works</h3>
-      <p>When a solve starts, the vision code reads the puzzle and outputs the game state: how many tubes there are and which colors are in each. The solver then works out the most efficient sequence of moves.</p>
-      <p>The robot has no idea where the tubes are, and the number of tubes changes from level to level. So my desktop does the heavy lifting: it uses ArUco markers on the phone cradle to calibrate the camera view to the robot's coordinate system, then converts each move from "pour tube 3 into tube 7" into physical tap positions. Figuring out that conversion was the hardest part of the project.</p>
-      <p>The full list of coordinates goes to the ESP32 in one message at the start of the solve, and the ESP32 runs through it as fast as the motors allow.</p>
-    </div>
+    <details class="more-text how">
+      <summary>How it works</summary>
+      <div class="prose">
+        <p>When a solve starts, the vision code reads the puzzle and outputs the game state: how many tubes there are and which colors are in each. The solver then works out the most efficient sequence of moves.</p>
+        <p>The robot has no idea where the tubes are, and the number of tubes changes from level to level. So my desktop does the heavy lifting: it uses ArUco markers on the phone cradle to calibrate the camera view to the robot's coordinate system, then converts each move from "pour tube 3 into tube 7" into physical tap positions. Figuring out that conversion was the hardest part of the project.</p>
+        <p>The full list of coordinates goes to the ESP32 in one message at the start of the solve, and the ESP32 runs through it as fast as the motors allow.</p>
+      </div>
+    </details>
 
     <div class="revs">
-      <h3>How the design changed</h3>
+      <h3>Three prototypes</h3>
 
       <article class="rev" aria-labelledby="rev-a">
         <div class="rev-letter" id="rev-a"><small>Rev</small>A</div>
         <div class="rev-body">
-          <p>The first proof of concept: linear rails on a wood and MDF base, belt-driven by two stepper motors and controlled by an Arduino. A servo swung a stylus down to touch the screen.</p>
-          <div class="change">
-            <strong>What went wrong</strong>
-            One axis had to carry the entire other axis, so the moving assembly was heavy, there was too much friction, and the steppers skipped steps. The servo stylus was too slow and didn't register taps reliably.
-          </div>
+          <p class="rev-sum">Proof of concept on a wood base, with an Arduino and a servo-driven stylus.</p>
           <div class="shots">
             <figure>
               <img src="media/rev-a-frame.jpg" alt="Rev A: linear rails on a wooden base with a belt-driven carriage and stepper motors" loading="lazy">
@@ -184,18 +190,20 @@
               <figcaption>Early motion test with the servo stylus.</figcaption>
             </figure>
           </div>
+          <details class="more-text">
+            <summary>What went wrong</summary>
+            <div class="prose">
+              <p>Linear rails on a wood and MDF base, belt-driven by two stepper motors and controlled by an Arduino. A servo swung a stylus down to touch the screen.</p>
+              <p>One axis had to carry the entire other axis, so the moving assembly was heavy, there was too much friction, and the steppers skipped steps. The servo stylus was too slow and didn't register taps reliably.</p>
+            </div>
+          </details>
         </div>
       </article>
 
       <article class="rev" aria-labelledby="rev-b">
         <div class="rev-letter" id="rev-b"><small>Rev</small>B</div>
         <div class="rev-body">
-          <p>I rebuilt the frame from aluminum extrusion in a bed-slinger layout, like many 3D printers: one axis moves the tapper and the other moves the phone, so neither axis has to carry the other. I replaced the servo stylus with a solenoid, which tapped faster and far more reliably.</p>
-          <p>I also moved from the Arduino to an ESP32. Sending moves one at a time over serial caused commands to arrive before the previous move had finished, which scrambled the order and timing. Sending the whole solution at once fixed that, but needed more processing power than the Arduino had.</p>
-          <div class="change">
-            <strong>What went wrong</strong>
-            It worked, but the steppers still skipped steps and I couldn't push the speed as far as I wanted.
-          </div>
+          <p class="rev-sum">Aluminum extrusion in a bed-slinger layout, a solenoid tapper, and the move to an ESP32.</p>
           <div class="shots">
             <figure>
               <img src="media/rev-b-overview.jpg" alt="Rev B: aluminum extrusion gantry with stepper motors and control electronics" loading="lazy">
@@ -210,37 +218,48 @@
               <figcaption>Side view.</figcaption>
             </figure>
           </div>
+          <details class="more-text">
+            <summary>What changed and why</summary>
+            <div class="prose">
+              <p>I rebuilt the frame from aluminum extrusion in a bed-slinger layout, like many 3D printers: one axis moves the tapper and the other moves the phone, so neither axis has to carry the other. I replaced the servo stylus with a solenoid, which tapped faster and far more reliably.</p>
+              <p>I also moved from the Arduino to an ESP32. Sending moves one at a time over serial caused commands to arrive before the previous move had finished, which scrambled the order and timing. Sending the whole solution at once fixed that, but needed more processing power than the Arduino had.</p>
+              <p>It worked, but the steppers still skipped steps and I couldn't push the speed as far as I wanted.</p>
+            </div>
+          </details>
         </div>
       </article>
 
       <article class="rev" aria-labelledby="rev-c">
         <div class="rev-letter" id="rev-c"><small>Rev</small>C</div>
         <div class="rev-body">
-          <p>A full redesign around a CoreXY motion system. Both motors stay fixed to the frame and drive the gantry through belts, so the moving mass is much lighter and the machine can run much faster. I designed every 3D-printed part and the full assembly in SolidWorks, with the power supplies and electronics packaged inside the frame.</p>
-          <p>ArUco markers on the printed phone cradle let the vision code calibrate every run, even if the camera had shifted. It crops everything except the phone screen for better accuracy and uses the marker positions to map the screen to robot coordinates. I later switched from a webcam to reading the screen directly through a capture card.</p>
-          <p>Even with the lighter gantry, pushing for speed still cost the occasional step. The robot homed on limit switches at the start of each run, but small losses added up over a long solve until it no longer knew where it was. I added encoders to make the motion closed-loop, so the system detects missed steps and corrects for them automatically instead of drifting.</p>
-          <div class="change">
-            <strong>What was hard</strong>
-            CoreXY was much harder to get right than the bed-slinger. The two belt loops have to run at different heights so they don't collide, and I had to design a belt tensioner after the rest of the machine was built. Losing position mid-solve was the other big one, and it's what led to the closed-loop system.
-          </div>
-          <div class="shots">
+          <p class="rev-sum">Custom CoreXY machine designed in SolidWorks, with closed-loop motion and marker-based calibration.</p>
+          <div class="shots quad">
             <figure>
-              <img src="media/rev-c-gantry-build.jpg" alt="Rev C: 3D-printed gantry frame on linear rails during assembly" loading="lazy">
-              <figcaption>Gantry during assembly.</figcaption>
+              <img src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
+              <figcaption>Finished machine, top view.</figcaption>
             </figure>
             <figure>
               <img src="media/rev-c-phone-cradle.jpg" alt="Rev C: printed phone cradle with four ArUco markers, over the power supplies" loading="lazy">
               <figcaption>Phone cradle with ArUco calibration markers.</figcaption>
             </figure>
             <figure>
-              <img src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
-              <figcaption>Finished machine, top view.</figcaption>
+              <img src="media/rev-c-gantry-build.jpg" alt="Rev C: 3D-printed gantry frame on linear rails during assembly" loading="lazy">
+              <figcaption>Gantry during assembly.</figcaption>
             </figure>
             <figure>
               <img src="media/rev-c-electronics.jpg" alt="Rev C: microcontroller, relay, and USB board mounted inside the frame" loading="lazy">
               <figcaption>Electronics packaged in the frame.</figcaption>
             </figure>
           </div>
+          <details class="more-text">
+            <summary>What changed and why</summary>
+            <div class="prose">
+              <p>A full redesign around a CoreXY motion system. Both motors stay fixed to the frame and drive the gantry through belts, so the moving mass is much lighter and the machine can run much faster. I designed every 3D-printed part and the full assembly in SolidWorks, with the power supplies and electronics packaged inside the frame.</p>
+              <p>ArUco markers on the printed phone cradle let the vision code calibrate every run, even if the camera had shifted. It crops everything except the phone screen for better accuracy and uses the marker positions to map the screen to robot coordinates. I later switched from a webcam to reading the screen directly through a capture card.</p>
+              <p>Even with the lighter gantry, pushing for speed still cost the occasional step. The robot homed on limit switches at the start of each run, but small losses added up over a long solve until it no longer knew where it was. I added encoders to make the motion closed-loop, so the system detects missed steps and corrects for them automatically instead of drifting.</p>
+              <p>CoreXY was much harder to get right than the bed-slinger. The two belt loops have to run at different heights so they don't collide, and I had to design a belt tensioner after the rest of the machine was built.</p>
+            </div>
+          </details>
           <!--
             ADD LATER: CAD and code.
             CAD renders: drop images in media/ and copy one of the <figure> blocks above.
