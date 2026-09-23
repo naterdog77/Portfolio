@@ -82,13 +82,14 @@
   details.more-text[open] summary::before { content: "\2212"; }
   details.more-text .prose { padding: 0.25rem 0 1rem; }
   details.more-text .prose p { margin: 0 0 0.75rem; }
-  .shots.quad { grid-template-columns: repeat(2, 1fr); }
-  .shots.quad img { aspect-ratio: 4 / 3; }
+  .rev-body img.lead { width: 100%; max-width: 720px; aspect-ratio: 4 / 3; object-fit: cover;
+    background: var(--panel); cursor: zoom-in; }
+  details.more-text .shots { padding-bottom: 1.25rem; }
   .rev-sum { font-size: 1.1rem; font-weight: 600; margin: 0 0 1rem; max-width: 60ch; }
   .revs { margin: 3rem 0 0; }
   .revs > h3 { margin-bottom: 1rem; }
   article.rev { border-top: 1.5px solid var(--ink); display: grid;
-    grid-template-columns: 7.5rem 1fr; gap: 0 2rem; padding: 1.75rem 0 2.5rem; }
+    grid-template-columns: 7.5rem 1fr; gap: 0 2rem; padding: 1.75rem 0 2rem; }
   .rev-letter { font-size: clamp(4.5rem, 10vw, 7rem); font-weight: 800; font-stretch: 62%;
     line-height: 0.8; color: var(--blue); }
   .rev-letter small { display: block; font-size: 0.9rem; font-weight: 600; font-stretch: 100%;
@@ -178,23 +179,20 @@
         <div class="rev-letter" id="rev-a"><small>Rev</small>A</div>
         <div class="rev-body">
           <p class="rev-sum">Proof of concept on a wood base, with an Arduino and a servo-driven stylus.</p>
-          <div class="shots">
-            <figure>
-              <img src="media/rev-a-frame.jpg" alt="Rev A: linear rails on a wooden base with a belt-driven carriage and stepper motors" loading="lazy">
-              <figcaption>Rails, belts, and limit switches on a wood base.</figcaption>
-            </figure>
-            <figure>
-              <video muted loop playsinline controls preload="none" poster="media/rev-a-test-poster.jpg">
-                <source src="media/rev-a-test.mp4" type="video/mp4">
-              </video>
-              <figcaption>Early motion test with the servo stylus.</figcaption>
-            </figure>
-          </div>
+          <img class="lead" src="media/rev-a-frame.jpg" alt="Rev A: linear rails on a wooden base with a belt-driven carriage and stepper motors" loading="lazy">
           <details class="more-text">
-            <summary>What went wrong</summary>
+            <summary>Details and more photos</summary>
             <div class="prose">
-              <p>Linear rails on a wood and MDF base, belt-driven by two stepper motors and controlled by an Arduino. A servo swung a stylus down to touch the screen.</p>
-              <p>One axis had to carry the entire other axis, so the moving assembly was heavy, there was too much friction, and the steppers skipped steps. The servo stylus was too slow and didn't register taps reliably.</p>
+                <p>Linear rails on a wood and MDF base, belt-driven by two stepper motors and controlled by an Arduino. A servo swung a stylus down to touch the screen.</p>
+                <p>One axis had to carry the entire other axis, so the moving assembly was heavy, there was too much friction, and the steppers skipped steps. The servo stylus was too slow and didn&rsquo;t register taps reliably.</p>
+            </div>
+            <div class="shots">
+              <figure>
+                <video muted loop playsinline controls preload="none" poster="media/rev-a-test-poster.jpg">
+                  <source src="media/rev-a-test.mp4" type="video/mp4">
+                </video>
+                <figcaption>Early motion test with the servo stylus.</figcaption>
+              </figure>
             </div>
           </details>
         </div>
@@ -204,26 +202,23 @@
         <div class="rev-letter" id="rev-b"><small>Rev</small>B</div>
         <div class="rev-body">
           <p class="rev-sum">Aluminum extrusion in a bed-slinger layout, a solenoid tapper, and the move to an ESP32.</p>
-          <div class="shots">
-            <figure>
-              <img src="media/rev-b-overview.jpg" alt="Rev B: aluminum extrusion gantry with stepper motors and control electronics" loading="lazy">
-              <figcaption>Extrusion frame, mid-switch from Arduino to ESP32.</figcaption>
-            </figure>
-            <figure>
-              <img src="media/rev-b-solenoid.jpg" alt="Rev B: solenoid tapper mounted on the moving carriage above the phone mount" loading="lazy">
-              <figcaption>Solenoid tapper on the carriage.</figcaption>
-            </figure>
-            <figure>
-              <img src="media/rev-b-side.jpg" alt="Rev B: side view of the extrusion frame and cable sleeve" loading="lazy">
-              <figcaption>Side view.</figcaption>
-            </figure>
-          </div>
+          <img class="lead" src="media/rev-b-overview.jpg" alt="Rev B: aluminum extrusion gantry with stepper motors and control electronics" loading="lazy">
           <details class="more-text">
-            <summary>What changed and why</summary>
+            <summary>Details and more photos</summary>
             <div class="prose">
-              <p>I rebuilt the frame from aluminum extrusion in a bed-slinger layout, like many 3D printers: one axis moves the tapper and the other moves the phone, so neither axis has to carry the other. I replaced the servo stylus with a solenoid, which tapped faster and far more reliably.</p>
-              <p>I also moved from the Arduino to an ESP32. Sending moves one at a time over serial caused commands to arrive before the previous move had finished, which scrambled the order and timing. Sending the whole solution at once fixed that, but needed more processing power than the Arduino had.</p>
-              <p>It worked, but the steppers still skipped steps and I couldn't push the speed as far as I wanted.</p>
+                <p>I rebuilt the frame from aluminum extrusion in a bed-slinger layout, like many 3D printers: one axis moves the tapper and the other moves the phone, so neither axis has to carry the other. I replaced the servo stylus with a solenoid, which tapped faster and far more reliably.</p>
+                <p>I also moved from the Arduino to an ESP32. Sending moves one at a time over serial caused commands to arrive before the previous move had finished, which scrambled the order and timing. Sending the whole solution at once fixed that, but needed more processing power than the Arduino had.</p>
+                <p>It worked, but the steppers still skipped steps and I couldn&rsquo;t push the speed as far as I wanted.</p>
+            </div>
+            <div class="shots">
+              <figure>
+                <img src="media/rev-b-solenoid.jpg" alt="Rev B: solenoid tapper mounted on the moving carriage above the phone mount" loading="lazy">
+                <figcaption>Solenoid tapper on the carriage.</figcaption>
+              </figure>
+              <figure>
+                <img src="media/rev-b-side.jpg" alt="Rev B: side view of the extrusion frame and cable sleeve" loading="lazy">
+                <figcaption>Side view, mid-switch from Arduino to ESP32.</figcaption>
+              </figure>
             </div>
           </details>
         </div>
@@ -233,37 +228,33 @@
         <div class="rev-letter" id="rev-c"><small>Rev</small>C</div>
         <div class="rev-body">
           <p class="rev-sum">Custom CoreXY machine designed in SolidWorks, with closed-loop motion and marker-based calibration.</p>
-          <div class="shots quad">
-            <figure>
-              <img src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
-              <figcaption>Finished machine, top view.</figcaption>
-            </figure>
-            <figure>
-              <img src="media/rev-c-phone-cradle.jpg" alt="Rev C: printed phone cradle with four ArUco markers, over the power supplies" loading="lazy">
-              <figcaption>Phone cradle with ArUco calibration markers.</figcaption>
-            </figure>
-            <figure>
-              <img src="media/rev-c-gantry-build.jpg" alt="Rev C: 3D-printed gantry frame on linear rails during assembly" loading="lazy">
-              <figcaption>Gantry during assembly.</figcaption>
-            </figure>
-            <figure>
-              <img src="media/rev-c-electronics.jpg" alt="Rev C: microcontroller, relay, and USB board mounted inside the frame" loading="lazy">
-              <figcaption>Electronics packaged in the frame.</figcaption>
-            </figure>
-          </div>
+          <img class="lead" src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
           <details class="more-text">
-            <summary>What changed and why</summary>
+            <summary>Details and more photos</summary>
             <div class="prose">
-              <p>A full redesign around a CoreXY motion system. Both motors stay fixed to the frame and drive the gantry through belts, so the moving mass is much lighter and the machine can run much faster. I designed every 3D-printed part and the full assembly in SolidWorks, with the power supplies and electronics packaged inside the frame.</p>
-              <p>ArUco markers on the printed phone cradle let the vision code calibrate every run, even if the camera had shifted. It crops everything except the phone screen for better accuracy and uses the marker positions to map the screen to robot coordinates. I later switched from a webcam to reading the screen directly through a capture card.</p>
-              <p>Even with the lighter gantry, pushing for speed still cost the occasional step. The robot homed on limit switches at the start of each run, but small losses added up over a long solve until it no longer knew where it was. I added encoders to make the motion closed-loop, so the system detects missed steps and corrects for them automatically instead of drifting.</p>
-              <p>CoreXY was much harder to get right than the bed-slinger. The two belt loops have to run at different heights so they don't collide, and I had to design a belt tensioner after the rest of the machine was built.</p>
+                <p>A full redesign around a CoreXY motion system. Both motors stay fixed to the frame and drive the gantry through belts, so the moving mass is much lighter and the machine can run much faster. I designed every 3D-printed part and the full assembly in SolidWorks, with the power supplies and electronics packaged inside the frame.</p>
+                <p>ArUco markers on the printed phone cradle let the vision code calibrate every run, even if the camera had shifted. It crops everything except the phone screen for better accuracy and uses the marker positions to map the screen to robot coordinates. I later switched from a webcam to reading the screen directly through a capture card.</p>
+                <p>Even with the lighter gantry, pushing for speed still cost the occasional step. The robot homed on limit switches at the start of each run, but small losses added up over a long solve until it no longer knew where it was. I added encoders to make the motion closed-loop, so the system detects missed steps and corrects for them automatically instead of drifting.</p>
+                <p>CoreXY was much harder to get right than the bed-slinger. The two belt loops have to run at different heights so they don&rsquo;t collide, and I had to design a belt tensioner after the rest of the machine was built.</p>
+            </div>
+            <div class="shots">
+              <figure>
+                <img src="media/rev-c-phone-cradle.jpg" alt="Rev C: printed phone cradle with four ArUco markers, over the power supplies" loading="lazy">
+                <figcaption>Phone cradle with ArUco calibration markers.</figcaption>
+              </figure>
+              <figure>
+                <img src="media/rev-c-gantry-build.jpg" alt="Rev C: 3D-printed gantry frame on linear rails during assembly" loading="lazy">
+                <figcaption>Gantry during assembly.</figcaption>
+              </figure>
+              <figure>
+                <img src="media/rev-c-electronics.jpg" alt="Rev C: microcontroller, relay, and USB board mounted inside the frame" loading="lazy">
+                <figcaption>Electronics packaged in the frame.</figcaption>
+              </figure>
             </div>
           </details>
           <!--
-            ADD LATER: CAD and code.
-            CAD renders: drop images in media/ and copy one of the <figure> blocks above.
-            Code: <p><a href="https://github.com/naterdog77/REPO-NAME">View the code on GitHub</a></p>
+            ADD LATER: CAD renders (copy a <figure> block into the shots grid above)
+            and a code link: <p><a href="https://github.com/naterdog77/REPO-NAME">View the code on GitHub</a></p>
           -->
         </div>
       </article>
@@ -302,7 +293,7 @@
 <script>
   const box = document.getElementById('lightbox');
   const big = box.querySelector('img');
-  document.querySelectorAll('.shots img').forEach(img => {
+  document.querySelectorAll('.shots img, img.lead').forEach(img => {
     img.tabIndex = 0;
     const open = () => { big.src = img.src; big.alt = img.alt; box.showModal(); };
     img.addEventListener('click', open);
