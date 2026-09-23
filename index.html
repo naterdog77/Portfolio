@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nate Posthumus — Mechanical Engineering Portfolio</title>
+<meta name="description" content="Mechanical engineering projects by Nate Posthumus, CU Boulder.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f6f4;
+    --panel: #eceeeb;
+    --ink: #1c2126;
+    --graphite: #58616a;
+    --rule: #c6ccd1;
+    --blue: #1e4e9c;
+    --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #15191d; --panel: #1d2227; --ink: #e5e8eb;
+      --graphite: #9aa3ac; --rule: #333b43; --blue: #86aaea;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #15191d; --panel: #1d2227; --ink: #e5e8eb;
+    --graphite: #9aa3ac; --rule: #333b43; --blue: #86aaea;
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--font); font-size: 1.0625rem; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, video { max-width: 100%; display: block; }
+  a { color: var(--blue); text-underline-offset: 0.18em; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.1rem, 4vw, 2.5rem); }
+  .prose { max-width: 64ch; }
+
+  /* Header */
+  header.top { padding: clamp(2rem, 6vw, 4rem) 0 1.5rem; display: flex; flex-wrap: wrap;
+    gap: 1rem 2rem; align-items: end; justify-content: space-between; }
+  h1 { margin: 0; font-size: clamp(2.6rem, 8vw, 5rem); line-height: 0.92;
+    font-weight: 800; font-stretch: 72%; letter-spacing: -0.01em; }
+  .sub { margin: 0.6rem 0 0; color: var(--graphite); font-size: 1.1rem; }
+  nav.links { display: flex; gap: 1.25rem; font-weight: 600; }
+
+  /* Hero */
+  .hero { margin: 0.5rem 0 0; }
+  .hero video { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--panel); }
+  .hero figcaption { color: var(--graphite); font-size: 0.9rem; margin-top: 0.5rem; }
+
+  /* Project intro */
+  section.project { padding: clamp(2.5rem, 7vw, 4.5rem) 0 1rem; }
+  h2 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 750; font-stretch: 78%;
+    line-height: 1.02; margin: 0 0 1rem; }
+  h3 { font-size: 1.35rem; font-weight: 700; font-stretch: 85%; margin: 0 0 0.4rem; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    border-top: 1.5px solid var(--ink); border-bottom: 1px solid var(--rule); margin: 1.75rem 0 0; }
+  .facts div { padding: 0.8rem 1rem 0.9rem 0; }
+  .facts dt { color: var(--graphite); font-size: 0.85rem; }
+  .facts dd { margin: 0.1rem 0 0; font-weight: 600; }
+
+  /* Revision table: the signature element */
+  .revs { margin: 3rem 0 0; }
+  .revs > h3 { margin-bottom: 1rem; }
+  article.rev { border-top: 1.5px solid var(--ink); display: grid;
+    grid-template-columns: 7.5rem 1fr; gap: 0 2rem; padding: 1.75rem 0 2.5rem; }
+  .rev-letter { font-size: clamp(4.5rem, 10vw, 7rem); font-weight: 800; font-stretch: 62%;
+    line-height: 0.8; color: var(--blue); }
+  .rev-letter small { display: block; font-size: 0.9rem; font-weight: 600; font-stretch: 100%;
+    color: var(--graphite); line-height: 1.2; margin-bottom: 0.4rem; }
+  .rev-body { min-width: 0; }
+  .rev-body > p { max-width: 64ch; margin: 0 0 0.75rem; }
+  .change { border-left: 3px solid var(--blue); padding: 0.1rem 0 0.1rem 1rem; margin: 1rem 0 1.25rem; max-width: 64ch; }
+  .change strong { display: block; font-size: 0.9rem; color: var(--graphite); font-weight: 600; }
+  .shots { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .shots figure { margin: 0; }
+  .shots img, .shots video { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: var(--panel); cursor: zoom-in; }
+  .shots video { cursor: default; }
+  .shots figcaption { font-size: 0.85rem; color: var(--graphite); margin-top: 0.35rem; }
+
+  /* Other projects */
+  section.more { padding: 2rem 0 3rem; border-top: 1.5px solid var(--ink); }
+  .more-grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .more-grid p { margin: 0.25rem 0 0; max-width: 60ch; }
+  .tag { color: var(--graphite); font-size: 0.9rem; }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0 3rem; color: var(--graphite); }
+  footer p { margin: 0.2rem 0; }
+
+  /* Lightbox */
+  dialog { border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 92vh; }
+  dialog::backdrop { background: rgba(10, 12, 14, 0.88); }
+  dialog img { max-width: 94vw; max-height: 86vh; width: auto; height: auto; }
+  dialog button { margin-top: 0.6rem; font: 600 1rem var(--font); color: #fff; background: none;
+    border: 1px solid rgba(255,255,255,.5); padding: 0.4rem 0.9rem; cursor: pointer; }
+
+  @media (max-width: 640px) {
+    article.rev { grid-template-columns: 1fr; }
+    .rev-letter { font-size: 4.5rem; margin-bottom: 0.75rem; }
+    .rev-letter small { display: inline; margin-right: 0.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    video[autoplay] { display: none; }
+    .hero .poster-fallback { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Nate Posthumus</h1>
+      <p class="sub">Mechanical engineering, University of Colorado Boulder, class of 2029</p>
+    </div>
+    <nav class="links" aria-label="Contact">
+      <a href="mailto:nate.posthumus01@gmail.com">Email</a>
+      <a href="Nate_Posthumus_Resume.pdf">Resume</a>
+      <!-- Add LinkedIn: <a href="https://www.linkedin.com/in/YOUR-HANDLE">LinkedIn</a> -->
+    </nav>
+  </header>
+
+  <figure class="hero">
+    <video autoplay muted loop playsinline preload="metadata" poster="media/rev-c-running-poster.jpg"
+           aria-label="The final robot moving its gantry across the phone">
+      <source src="media/rev-c-running.mp4" type="video/mp4">
+    </video>
+    <img class="poster-fallback" src="media/rev-c-running-poster.jpg" alt="The final robot on the bench" style="display:none">
+    <figcaption>Rev C running on the bench.</figcaption>
+  </figure>
+
+  <section class="project" aria-labelledby="robot">
+    <h2 id="robot">Phone puzzle-solving robot</h2>
+    <div class="prose">
+      <p>A two-axis gantry that watches a phone screen through a camera, solves the puzzle in real time with computer vision, and taps the answer in with a solenoid. I designed, built, and programmed it on my own, and took it through three prototypes to get it fast and accurate enough to keep up with the game.</p>
+      <p>A Python program reads the screen with OpenCV and works out the solution, then sends move commands over serial to a microcontroller that drives the stepper motors and the tapper.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Timeline</dt><dd>Summer 2024 to summer 2026</dd></div>
+      <div><dt>Design and fabrication</dt><dd>SolidWorks, 3D printing, CNC</dd></div>
+      <div><dt>Software</dt><dd>Python, OpenCV, serial motor control</dd></div>
+      <div><dt>Hardware</dt><dd>Stepper motors, belt drive, linear rails, solenoid</dd></div>
+    </dl>
+
+    <div class="revs">
+      <h3>How the design changed</h3>
+
+      <article class="rev" aria-labelledby="rev-a">
+        <div class="rev-letter" id="rev-a"><small>Rev</small>A</div>
+        <div class="rev-body">
+          <p>The first proof of concept: steel linear rails screwed to a wood and MDF base, belt-driven by two stepper motors, with an Arduino running the motion and a stylus arm to touch the screen. The goal was just to prove the gantry could hit points on the phone reliably.</p>
+          <div class="change">
+            <strong>What I learned</strong>
+            <!-- EDIT: replace with what actually went wrong on this version -->
+            The wood frame flexed and shifted, so positions drifted between taps and I had to re-home constantly. It worked well enough to show the idea was possible, but not accurate enough to play the game.
+          </div>
+          <div class="shots">
+            <figure>
+              <img src="media/rev-a-frame.jpg" alt="Rev A: linear rails on a wooden base with a belt-driven carriage and stepper motors" loading="lazy">
+              <figcaption>Rails, belts, and limit switches on a wood base.</figcaption>
+            </figure>
+            <figure>
+              <video muted loop playsinline controls preload="none" poster="media/rev-a-test-poster.jpg">
+                <source src="media/rev-a-test.mp4" type="video/mp4">
+              </video>
+              <figcaption>First motion test.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="rev" aria-labelledby="rev-b">
+        <div class="rev-letter" id="rev-b"><small>Rev</small>B</div>
+        <div class="rev-body">
+          <p>Rebuilt on aluminum extrusion for a much stiffer frame, and swapped the stylus for a solenoid plunger so a tap is a quick, repeatable electrical pulse instead of a mechanical motion.</p>
+          <div class="change">
+            <strong>What I learned</strong>
+            <!-- EDIT: replace with what actually went wrong on this version -->
+            The frame was rigid, but the off-the-shelf extrusion parts made it bulky and hard to align with the phone, and the loose wiring caused intermittent faults. I wanted a compact design built around the phone itself.
+          </div>
+          <div class="shots">
+            <figure>
+              <img src="media/rev-b-overview.jpg" alt="Rev B: aluminum extrusion gantry with stepper motors and control electronics" loading="lazy">
+              <figcaption>Extrusion gantry with the control electronics.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/rev-b-solenoid.jpg" alt="Rev B: solenoid tapper mounted on the moving carriage above the phone mount" loading="lazy">
+              <figcaption>Solenoid tapper on the carriage.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/rev-b-side.jpg" alt="Rev B: side view of the extrusion frame and cable sleeve" loading="lazy">
+              <figcaption>Side view.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <article class="rev" aria-labelledby="rev-c">
+        <div class="rev-letter" id="rev-c"><small>Rev</small>C</div>
+        <div class="rev-body">
+          <p>A full redesign in SolidWorks. Custom 3D-printed brackets and carriages ride on linear rails, the power supplies and electronics are packaged inside the frame, and a printed phone cradle holds the phone in a fixed position. Fiducial markers on the cradle let the camera locate the screen precisely.</p>
+          <div class="change">
+            <strong>What changed</strong>
+            <!-- EDIT: add real numbers if you have them, like tap speed or accuracy -->
+            Designing every part myself meant I could control the fit between parts, keep the whole machine compact, and make it fast and accurate enough to solve the puzzle in real time.
+          </div>
+          <div class="shots">
+            <figure>
+              <img src="media/rev-c-gantry-build.jpg" alt="Rev C: 3D-printed gantry frame on linear rails during assembly" loading="lazy">
+              <figcaption>Gantry during assembly.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/rev-c-phone-cradle.jpg" alt="Rev C: printed phone cradle with four fiducial markers, over the power supplies" loading="lazy">
+              <figcaption>Phone cradle with fiducial markers.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
+              <figcaption>Finished machine, top view.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/rev-c-electronics.jpg" alt="Rev C: microcontroller, relay, and USB board mounted inside the frame" loading="lazy">
+              <figcaption>Electronics packaged in the frame.</figcaption>
+            </figure>
+          </div>
+          <!--
+            ADD LATER: CAD and code.
+            CAD renders: drop images in media/ and copy one of the <figure> blocks above.
+            Code: <p><a href="https://github.com/naterdog77/REPO-NAME">View the code on GitHub</a></p>
+          -->
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="more" aria-labelledby="other">
+    <h2 id="other">Other projects</h2>
+    <div class="more-grid">
+      <div>
+        <h3>Raspberry Pi home server</h3>
+        <p class="tag">May to July 2026</p>
+        <p>A self-hosted network storage server on a Raspberry Pi, running OpenMediaVault and Docker on Linux, with Tailscale for secure remote access from outside the home network.</p>
+      </div>
+      <!-- Add the M&M sorter here once there's something to show:
+      <div>
+        <h3>M&amp;M sorting line</h3>
+        <p class="tag">In progress</p>
+        <p>One or two sentences on what it does.</p>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <footer>
+    <p>Nate Posthumus</p>
+    <p><a href="mailto:nate.posthumus01@gmail.com">nate.posthumus01@gmail.com</a></p>
+  </footer>
+</div>
+
+<dialog id="lightbox" aria-label="Enlarged photo">
+  <img src="" alt="">
+  <form method="dialog"><button>Close</button></form>
+</dialog>
+
+<script>
+  const box = document.getElementById('lightbox');
+  const big = box.querySelector('img');
+  document.querySelectorAll('.shots img').forEach(img => {
+    img.tabIndex = 0;
+    const open = () => { big.src = img.src; big.alt = img.alt; box.showModal(); };
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+  });
+  box.addEventListener('click', e => { if (e.target === box) box.close(); });
+</script>
+</body>
+</html>
