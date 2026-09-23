@@ -181,7 +181,7 @@
           <p class="rev-sum">Proof of concept on a wood base, with an Arduino and a servo-driven stylus.</p>
           <img class="lead" src="media/rev-a-frame.jpg" alt="Rev A: linear rails on a wooden base with a belt-driven carriage and stepper motors" loading="lazy">
           <details class="more-text">
-            <summary>Details and more photos</summary>
+            <summary>Details</summary>
             <div class="prose">
                 <p>Linear rails on a wood and MDF base, belt-driven by two stepper motors and controlled by an Arduino. A servo swung a stylus down to touch the screen.</p>
                 <p>One axis had to carry the entire other axis, so the moving assembly was heavy, there was too much friction, and the steppers skipped steps. The servo stylus was too slow and didn&rsquo;t register taps reliably.</p>
@@ -204,7 +204,7 @@
           <p class="rev-sum">Aluminum extrusion in a bed-slinger layout, a solenoid tapper, and the move to an ESP32.</p>
           <img class="lead" src="media/rev-b-overview.jpg" alt="Rev B: aluminum extrusion gantry with stepper motors and control electronics" loading="lazy">
           <details class="more-text">
-            <summary>Details and more photos</summary>
+            <summary>Details</summary>
             <div class="prose">
                 <p>I rebuilt the frame from aluminum extrusion in a bed-slinger layout, like many 3D printers: one axis moves the tapper and the other moves the phone, so neither axis has to carry the other. I replaced the servo stylus with a solenoid, which tapped faster and far more reliably.</p>
                 <p>I also moved from the Arduino to an ESP32. Sending moves one at a time over serial caused commands to arrive before the previous move had finished, which scrambled the order and timing. Sending the whole solution at once fixed that, but needed more processing power than the Arduino had.</p>
@@ -230,7 +230,7 @@
           <p class="rev-sum">Custom CoreXY machine designed in SolidWorks, with closed-loop motion and marker-based calibration.</p>
           <img class="lead" src="media/rev-c-overview.jpg" alt="Rev C: top view of the finished robot" loading="lazy">
           <details class="more-text">
-            <summary>Details and more photos</summary>
+            <summary>Details</summary>
             <div class="prose">
                 <p>A full redesign around a CoreXY motion system. Both motors stay fixed to the frame and drive the gantry through belts, so the moving mass is much lighter and the machine can run much faster. I designed every 3D-printed part and the full assembly in SolidWorks, with the power supplies and electronics packaged inside the frame.</p>
                 <p>ArUco markers on the printed phone cradle let the vision code calibrate every run, even if the camera had shifted. It crops everything except the phone screen for better accuracy and uses the marker positions to map the screen to robot coordinates. I later switched from a webcam to reading the screen directly through a capture card.</p>
